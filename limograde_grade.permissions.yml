@@ -1,0 +1,22 @@
+add grade entities:
+  title: 'Create new grades'
+
+administer grade entities:
+  title: 'Administer grades'
+  description: 'Allow to access the administration form to configure grade entities.'
+  restrict access: true
+
+delete grade entities:
+  title: 'Delete grades'
+
+edit grade entities:
+  title: 'Edit grades'
+
+access grade overview:
+  title: 'Access the grade overview page'
+
+view published grade entities:
+  title: 'View published grades'
+
+view unpublished grade entities:
+  title: 'View unpublished grades'

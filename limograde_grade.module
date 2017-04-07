@@ -1,0 +1,22 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+function limograde_grade_form_grade_add_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $request = \Drupal::request();
+  if ($company_nid = $request->query->get('company')) {
+    // Show a company teaser above the grading form.
+    $entity_manager = \Drupal::entityManager();
+    $entity = $entity_manager->getStorage('node')->load($company_nid);
+    $view_builder = $entity_manager->getViewBuilder('node');
+    $output = $view_builder->view($entity, 'mini');
+    $form['company_teaser'] = array(
+      '#type' => 'markup',
+      '#markup' => drupal_render($output),
+      '#weight' => -10,
+    );
+    // Hide the company reference on add form.
+    $form['field_company']['widget'][0]['target_id']['#type'] = 'hidden';
+    $form['field_company']['widget'][0]['target_id']['#value'] = $company_nid;
+  }
+}

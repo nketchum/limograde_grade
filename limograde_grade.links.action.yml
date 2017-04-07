@@ -1,0 +1,5 @@
+entity.grade.add_form:
+  route_name: entity.grade.add_form
+  title: 'Add grade'
+  appears_on:
+    - entity.grade.collection

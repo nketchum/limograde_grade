@@ -1,0 +1,7 @@
+name: LimoGrade grade
+type: module
+description: Provides grade entities for various content entities.
+core: 8.x
+package: Custom
+dependencies:
+  - limograde_company

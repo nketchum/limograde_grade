@@ -1,0 +1,14 @@
+{
+  "name": "drupal/limograde_grade",
+  "type": "drupal-module",
+  "description": "Provides grade entities for various content entities.",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/limograde_grade",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/limograde_grade",
+    "source": "http://cgit.drupalcode.org/limograde_grade"
+  },
+  "require": { }
+}

@@ -1,0 +1,5 @@
+grade.admin.structure.settings:
+  title: Grades
+  description: 'Configure grades'
+  route_name: grade.settings
+  parent: system.admin_structure

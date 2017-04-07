@@ -1,0 +1,28 @@
+# Grade routing definition
+grade.settings_tab:
+  route_name: grade.settings
+  title: 'Settings'
+  base_route: grade.settings
+
+entity.grade.canonical:
+  route_name: entity.grade.canonical
+  base_route: entity.grade.canonical
+  title: 'View'
+
+entity.grade.edit_form:
+  route_name: entity.grade.edit_form
+  base_route: entity.grade.canonical
+  title: 'Edit'
+
+entity.grade.delete_form:
+  route_name:  entity.grade.delete_form
+  base_route:  entity.grade.canonical
+  title: Delete
+  weight: 10
+
+entity.grade.collection:
+  title: 'Grades'
+  route_name: entity.grade.collection
+  description: 'Manage grades'
+  base_route: system.admin_content
+  weight: 0
