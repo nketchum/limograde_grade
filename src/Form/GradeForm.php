@@ -51,7 +51,7 @@ class GradeForm extends ContentEntityForm {
       $element['publish']['#dropbutton'] = 'save';
     }
     if ($grade->isNew()) {
-      $element['publish']['#value'] = t('Save and approve');
+      $element['publish']['#value'] = t('Submit and approve');
     }
     else {
       $element['publish']['#value'] = $grade->isPublished() ? t('Save and keep approved') : t('Save and approve');

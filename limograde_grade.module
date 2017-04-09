@@ -19,5 +19,7 @@ function limograde_grade_form_grade_add_form_alter(&$form, FormStateInterface $f
     $form['field_company']['widget'][0]['target_id']['#type'] = 'hidden';
     $form['field_company']['widget'][0]['target_id']['#value'] = $company_nid;
   }
-  unset($form['actions']['publish']);
+  if (!\Drupal::currentUser()->hasPermission('edit grade entities')) {
+    unset($form['actions']['publish']);
+  }
 }
