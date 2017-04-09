@@ -20,3 +20,19 @@ view published grade entities:
 
 view unpublished grade entities:
   title: 'View unpublished grades'
+
+edit any average grade field:
+  title: 'Edit any average grade field'
+  description: 'Allow edit access to field on content authored by anybody.'
+
+edit own average grade field:
+  title: 'Edit own average grade field'
+  description: 'Allow edit access to field on content authored by current user only.'
+
+always view own average grade:
+  title: 'Always view own average grade'
+  description: 'Always allow access to view average grade on own content.'
+
+always view any average grade:
+  title: 'Always view any average grade'
+  description: 'Always allow access to view average grade on any content.'
