@@ -19,7 +19,7 @@ use Drupal\user\UserInterface;
  *   id = "grade",
  *   label = @Translation("Grade"),
  *   handlers = {
- *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
+ *     "view_builder" = "Drupal\limograde_grade\GradeViewBuilder",
  *     "list_builder" = "Drupal\limograde_grade\GradeListBuilder",
  *     "views_data" = "Drupal\limograde_grade\Entity\GradeViewsData",
  *

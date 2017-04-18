@@ -9,14 +9,24 @@
  * Available variables:
  * - content: A list of content items. Use 'content' to print all content, or
  * - attributes: HTML attributes for the container element.
+ * - url: The internal Drupal url to view the entity.
  *
  * @see template_preprocess_grade()
  *
  * @ingroup themeable
  */
 #}
-<div{{ attributes.addClass('grade') }}>
-  {% if content %}
-    {{- content -}}
-  {% endif %}
-</div>
+<article{{ attributes.addClass('grade panel-item clearfix') }}>
+  <div class="group group-left">
+    {{ content.field_name }}
+    {{ content.field_grade }}
+    {{ content.field_trip_date }}
+    {{ created|raw }}
+  </div>
+  <div class="group group-right">
+    {% if edit %}
+      {{ edit }}
+    {% endif %}
+    {{ content.field_review }}
+  </div>
+</article>

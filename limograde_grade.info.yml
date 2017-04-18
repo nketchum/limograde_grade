@@ -4,4 +4,9 @@ description: Provides grade entities for various content entities.
 core: 8.x
 package: Custom
 dependencies:
+  - datetime
+  - double_field
+  - field_group
   - limograde_company
+  - options
+  - views
