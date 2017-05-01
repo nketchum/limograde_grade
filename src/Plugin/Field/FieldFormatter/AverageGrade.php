@@ -34,7 +34,22 @@ class AverageGrade extends BooleanFormatter {
     'D+' => 1.33,
     'D'  => 1,
     'D-' => 0.67,
-    'E' => 0
+    'F' => 0
+  ];
+
+  protected $notations = [
+    'Excellent' => 4,
+    'Superior' => 3.37,
+    'Very Good' => 3.33,
+    'Good' => 3,
+    'Satisfactory' => 2.67,
+    'Barely Satisfactory' => 2.33,
+    'Average' => 2,
+    'Barely Average' => 1.67,
+    'Below Average' => 1.33,
+    'Poor' => 1,
+    'Very Poor' => 0.67,
+    'Terrible' => 0
   ];
 
   /**
@@ -52,6 +67,7 @@ class AverageGrade extends BooleanFormatter {
       $entity_id = $entity->id();
 
       // Get list of all grades for this content.
+      // @TODO make field configurable and optional/failsafe.
       $query = db_select('grade', 'g');
       $query->join('grade__field_company', 'gfc', 'g.id = gfc.entity_id');
       $query->join('grade__field_grade', 'gfg', 'g.id = gfg.entity_id');
@@ -69,12 +85,13 @@ class AverageGrade extends BooleanFormatter {
       }
       if ($i > 0) {
         $average = $total/$i;
+        $label = $i > 1 ? 'grades' : 'grade';
         $letter = self::getLetterGrade($average);
-        $entity_link = $entity->toUrl()->toString();
-        // $link = Link::fromTextAndUrl($letter, Url::fromUri($entity_link, array()))->toRenderable();
+        $notation = self::getNotation($average);
+        $score = number_format(round($average, 2), 2) * 25;
         $elements[$delta] = ['#markup' =>
-          '<span class="grade-letter"><strong><a href="'. $entity_link .'">'. $letter .'</a></strong></span> '.
-          '<span class="grade-score"><em>(<span class="grade-score-score">'. number_format(round($average, 2), 2) .'/4.00 GPA</span> — <span class="grade-score-count">'. $i .' submitted</span>)</em></span>'];
+          '<span class="grade-letter"><strong>'. $letter .' – '. $notation .'</strong></span> '.
+          '<span class="grade-score"><em>(<span class="grade-score-score">'. $score .'%</span> – <span class="grade-score-count">'. $i .' '. $label .'</span>)</em></span>'];
       }
 
       // Do not return any data to unpriviliged users if form is unchecked.
@@ -97,6 +114,16 @@ class AverageGrade extends BooleanFormatter {
       }
     }
     return $grade;
+  }
+
+  protected function getNotation($score) {
+    $notation = '';
+    foreach($this->notations as $key => $value) {
+      if ($notation === '' && $score >= $value) {
+        $notation = $key;
+      }
+    }
+    return $notation;
   }
 
   /**

@@ -111,15 +111,11 @@ class GradeForm extends ContentEntityForm {
     $form_state->setRedirect('entity.grade.canonical', ['grade' => $entity->id()]);
 
     // Clear releated company node cache so that grade display updates.
-    if (array_key_exists('field_company', $form)) {
-      if (is_numeric($form['field_company']['widget'][0]['target_id']['#value'])) {
-        $node_id = $form['field_company']['widget'][0]['target_id']['#value'];
+    if (is_array($entity->field_company->getValue())) {
+      $node_id = $entity->field_company->getValue()[0]['target_id'];
+      if (is_numeric($node_id)) {
+        Cache::invalidateTags(array('node:'. $node_id));
       }
-      elseif (is_object($form['field_company']['widget'][0]['target_id']['#default_value'])) {
-        $node = $form['field_company']['widget'][0]['target_id']['#default_value'];
-        $node_id = $node->id();
-      }
-      Cache::invalidateTags(array('node:'. $node_id));
     }
   }
 
