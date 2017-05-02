@@ -5,6 +5,35 @@ use Drupal\Core\Render\Element;
 use Drupal\mollom\Entity\FormInterface;
 
 /**
+ * Implements hook_module_implements_alter().
+ */
+function limograde_grade_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'form_alter') {
+    // Move limograde_grade_form_alter() to the end of the $implementations array.
+    // Drupal::moduleHandler()->getImplementations() iterates $implementations in FIFO order.
+    $group = $implementations['limograde_grade'];
+    unset($implementations['limograde_grade']);
+    $implementations['limograde_grade'] = $group;
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function limograde_grade_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Give mollom items bootstrap-panel styles.
+  if (array_key_exists('mollom', $form)) {
+    $form['mollom']['#attributes'] = array(
+      'class' => array(
+        'panel',
+        'panel-default',
+        'panel-body',
+      ),
+    );
+  }
+}
+
+/**
  * Implements hook_form_FORM_ID_alter().
  */
 function limograde_grade_form_grade_add_form_alter(&$form, FormStateInterface $form_state, $form_id) {
@@ -41,7 +70,7 @@ function limograde_grade_theme() {
 }
 
 /**
- * Implements hook_preprocess_ENTITYBUNDLE().
+ * Implements hook_preprocess_ENTITY().
  */
 function limograde_grade_preprocess_grade(&$variables) {
   $variables['view_mode'] = $variables['elements']['#view_mode'];
@@ -65,7 +94,7 @@ function limograde_grade_preprocess_grade(&$variables) {
 
       $variables['edit'] = array(
         '#type' => 'markup',
-        '#markup' => '<a href="/grade/'. $entity->id() . '/edit?destination='. $alias .'" class="btn btn-sm btn-default">Edit</a>',
+        '#markup' => '<a href="/grade/'. $entity->id() . '/edit?destination='. $alias .'" class="btn btn-xs btn-default">Edit</a>',
         '#weight' => -10,
       );
     }
